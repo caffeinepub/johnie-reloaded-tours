@@ -1,39 +1,28 @@
-# Ainomugisha John Labera — Tour Guide Resume Website
+# Johnie Reloaded Tours
 
 ## Current State
-New project. No existing application files.
+Full resume website with Navbar, Hero, About, Services, Experience, Education, Testimonials, Contact, and Footer sections. No download functionality exists.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full single-page resume website for a professional Ugandan tour guide
-- Hero section: full-width landscape background, name, role, tagline, Call/Email CTA buttons, Instagram/Facebook icons
-- About section: biography paragraph, short pull quote, profile photo
-- Services/Specialties section: 5 cards — Wildlife Safaris, Cultural Tours, Gorilla Trekking, Birding Safaris, Adventure Hikes — each with icon and short description
-- Experience & Certifications: vertical timeline — Monkey Adventures, Authentic Africa Safaris, Birdnest Resort Tours & Travel Ltd (2018–Present); Level One Guiding Certificate from African Institute of Tourism and Field Guiding
-- Education: vertical timeline — Kampala International University, Kigezi College Butobere, Kabale Brainstorm High School, St. Maria Goretti Nursery & Preparatory School
-- Testimonials: auto-scrolling carousel with 3 placeholder guest quotes and star ratings
-- Contact: phone, email, social links, simple booking inquiry form (name, email, message, submit), static map visual for Kabale/Kampala region
-- Sticky/minimal navigation bar linking to all sections
-- Footer with name, tagline, and contact info
+- `html2pdf.js` dependency for client-side PDF generation with styles preserved
+- "Download PDF" button in the Navbar (desktop) and mobile menu
+- `usePdfDownload` hook that triggers html2pdf on the full page content, hiding the navbar and download button during capture
 
 ### Modify
-N/A
+- `Navbar.tsx`: Add Download PDF button next to the BOOK A SAFARI button
+- `package.json`: Add html2pdf.js dependency
 
 ### Remove
-N/A
+- Nothing
 
 ## Implementation Plan
-- Backend: store booking form submissions (name, email, message, timestamp)
-- Frontend:
-  - Color tokens: forest green #0B5A3A, earth brown #7A4B2A, golden #D4A017, sand #F6F1EA
-  - Google Fonts: display font (e.g. Playfair Display) for headings, Inter/Lato for body
-  - Hero with gradient overlay on landscape background image (generated)
-  - Profile photo from uploaded asset
-  - Services grid with SVG/emoji icons
-  - Timeline components for experience and education
-  - Testimonial carousel with placeholder quotes
-  - Static SVG map placeholder showing Uganda with Kabale and Kampala pinned
-  - Booking form wired to backend canister
-  - Fully responsive, mobile-first layout
-  - All content in a single data/constants file for easy dev editing
+1. Install `html2pdf.js` and its types (`@types/html2pdf.js`)
+2. Create a `usePdfDownload` hook that:
+   - Hides the navbar and PDF button (via a CSS class or ref)
+   - Calls html2pdf on `document.body` or the `<main>` wrapper
+   - Uses options: format A4, jsPDF with portrait, preserves CSS, scale 2 for sharpness
+   - Restores hidden elements after generation
+3. Add a "Download PDF" button to Navbar (desktop inline with BOOK A SAFARI; mobile menu at bottom)
+4. Validate and build

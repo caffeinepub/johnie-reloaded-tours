@@ -142,3 +142,35 @@
   background-color: oklch(var(--parchment));
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Crect width='6' height='6' fill='%23f0ebe2'/%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23d6cfc4' opacity='0.3'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='%23d6cfc4' opacity='0.3'/%3E%3C/svg%3E");
 }
+
+/* Print styles */
+@media print {
+  /* Hide navbar and download buttons */
+  header,
+  [data-pdf-hide] {
+    display: none !important;
+  }
+
+  /* Remove fixed positioning, show full page */
+  body {
+    background: white !important;
+  }
+
+  /* Ensure backgrounds and colors print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Avoid breaking sections across pages */
+  section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Remove top padding that was reserved for the fixed navbar */
+  main {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}

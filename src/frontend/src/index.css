@@ -154,6 +154,8 @@
   /* Remove fixed positioning, show full page */
   body {
     background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Ensure backgrounds and colors print */
@@ -162,8 +164,14 @@
     print-color-adjust: exact !important;
   }
 
-  /* Avoid breaking sections across pages */
+  /* Allow sections to break across pages naturally */
   section {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  /* Only avoid breaks inside small card/list items */
+  .print-no-break {
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -172,5 +180,11 @@
   main {
     padding-top: 0 !important;
     margin-top: 0 !important;
+  }
+
+  /* Remove overflow hidden that may clip content */
+  section,
+  div {
+    overflow: visible !important;
   }
 }

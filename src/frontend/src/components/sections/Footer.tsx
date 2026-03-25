@@ -1,10 +1,9 @@
 import { siteContent } from "@/data/content";
-import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
-  { label: "Experience", href: "#experience" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
 ];
@@ -24,13 +23,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
-            <div className="font-display text-2xl font-bold text-gold tracking-widest uppercase mb-3">
+            <div className="font-display text-xl font-bold text-gold tracking-widest uppercase mb-3">
               {siteContent.shortName}
             </div>
-            <p className="text-sand/60 text-sm leading-relaxed mb-4">
+            <p className="text-sand/60 text-sm leading-relaxed">
               {siteContent.tagline}
             </p>
-            <p className="text-sand/50 text-xs">{siteContent.location}</p>
           </div>
 
           <div>
@@ -58,17 +56,6 @@ export function Footer() {
               Contact
             </h4>
             <ul className="space-y-3">
-              {siteContent.phones.map((p) => (
-                <li key={p}>
-                  <a
-                    href={`tel:${p.replace(/\s/g, "")}`}
-                    className="flex items-center gap-2 text-sand/50 hover:text-gold text-sm transition-colors"
-                  >
-                    <Phone size={13} className="text-gold/60" />
-                    {p}
-                  </a>
-                </li>
-              ))}
               <li>
                 <a
                   href={`mailto:${siteContent.email}`}
@@ -103,9 +90,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-sand/30">
-          <p>
-            &copy; {year} {siteContent.name}. All rights reserved.
-          </p>
+          <p>&copy; {year} Inside Uganda Holidays. All rights reserved.</p>
           <p>
             Built with ❤ using{" "}
             <a

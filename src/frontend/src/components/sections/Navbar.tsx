@@ -1,12 +1,10 @@
 import { siteContent } from "@/data/content";
-import { usePdfDownload } from "@/hooks/usePdfDownload";
-import { Download, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const navLinks = [
   { label: "ABOUT", href: "#about" },
   { label: "SERVICES", href: "#services" },
-  { label: "EXPERIENCE", href: "#experience" },
   { label: "TESTIMONIALS", href: "#testimonials" },
   { label: "CONTACT", href: "#contact" },
 ];
@@ -14,7 +12,6 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { download, loading } = usePdfDownload();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -39,7 +36,7 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => handleNavClick("#hero")}
-            className="font-display text-gold font-bold text-lg tracking-widest uppercase hover:text-gold-light transition-colors"
+            className="font-display text-gold font-bold text-sm tracking-widest uppercase hover:text-gold-light transition-colors"
             data-ocid="nav.link"
           >
             {siteContent.shortName}
@@ -62,18 +59,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              type="button"
-              data-pdf-hide
-              onClick={download}
-              disabled={loading}
-              className="border border-gold text-gold hover:bg-gold/10 font-bold text-xs tracking-widest uppercase px-5 py-2.5 rounded transition-all duration-200 flex items-center gap-2 disabled:opacity-60"
-              data-ocid="nav.secondary_button"
-            >
-              <Download size={14} />
-              {loading ? "GENERATING..." : "DOWNLOAD PDF"}
-            </button>
+          <div className="hidden md:flex items-center">
             <button
               type="button"
               onClick={() => handleNavClick("#contact")}
@@ -110,17 +96,6 @@ export function Navbar() {
                 {link.label}
               </button>
             ))}
-            <button
-              type="button"
-              data-pdf-hide
-              onClick={download}
-              disabled={loading}
-              className="mt-3 border border-gold text-gold hover:bg-gold/10 font-bold text-xs tracking-widest uppercase px-5 py-3 rounded text-center flex items-center justify-center gap-2 disabled:opacity-60"
-              data-ocid="nav.secondary_button"
-            >
-              <Download size={14} />
-              {loading ? "GENERATING..." : "DOWNLOAD PDF"}
-            </button>
             <button
               type="button"
               onClick={() => handleNavClick("#contact")}

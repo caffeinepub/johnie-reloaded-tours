@@ -1,152 +1,95 @@
 // ============================================================
 // CONTENT FILE — Edit all text, images, and data here.
-// A developer can update any section without touching components.
 // ============================================================
 
 export const siteContent = {
-  // ---- Identity ----
-  name: "Ainomugisha John Labera",
-  shortName: "Johnie Reloaded",
-  role: "Professional Tour Guide | Uganda",
-  tagline: "Guiding you through Uganda's wild heart.",
-  location: "Kabale & Kampala, Uganda",
-  email: "ainomugishajohnie@gmail.com",
-  phones: ["+256 751 348 639", "+256 781 881 037"],
-  instagram: "https://www.instagram.com/johniereloaded",
-  facebook: "https://www.facebook.com/johniereloaded",
-  profilePhoto:
-    "/assets/uploads/photo_5911243067098861082_x-019d1c22-4244-716b-8cc2-e5cb429f073c-1.jpeg",
+  name: "Inside Uganda Holidays",
+  shortName: "Inside Uganda Holidays",
+  tagline: "Adventure is the path",
+  email: "info@insideuganda.holidays",
+  instagram: "https://www.instagram.com/insideugandaholidays",
+  facebook: "https://www.facebook.com/insideugandaholidays",
   heroImage: "/assets/generated/hero-uganda-landscape.dim_1920x1080.jpg",
 
-  // ---- About ----
-  bio: `Passionate and personable Ugandan tour guide with over 6 years of hands-on experience leading wildlife safaris, cultural tours, and adventure travel across Uganda. I specialize in creating meaningful, safe, and truly authentic encounters with Uganda's extraordinary nature and people. Whether navigating dense mountain gorilla habitats in Bwindi, spotting rare birds along the papyrus swamps, or sitting around the fire with a local Bakiga family, I bring deep local knowledge, genuine warmth, and professional skill to every experience.
+  heroHeadline: "Inside Uganda Holidays",
+  heroDescription:
+    "Transforming a simple trip into an extraordinary and unforgettable journey defined by exclusivity, sophistication, and impeccable service. We are the epitome of high-touch service, ensuring every moment of the clients' travel experience is nothing short of perfection.",
 
-Holding a Level One Guiding Certificate from the African Institute of Tourism and Field Guiding, I've led over 200 guided tours for international travelers, crafting custom itineraries that balance adventure, safety, and sustainability. My base in Kabale gives me unrivalled access to the Kigezi highlands, while my connections across Uganda make nationwide experiences seamless.`,
-  quote: "Every trail tells a story — I'm here to make yours unforgettable.",
-  stats: [
-    { value: "6+", label: "Years Experience" },
-    { value: "200+", label: "Tours Led" },
-    { value: "5", label: "Countries Covered" },
+  aboutParagraphs: [
+    "Inside Uganda Holidays is a passionate, locally owned tour company rooted in the heart of the Pearl of Africa. We exist for one reason: to hand you the keys to experiences most travellers only dream about.",
+    "We don't just organise trips. We open doors. As Ugandans who have lived, breathed, and wandered every corner of this spectacular country, we know where the real magic happens. From hidden forest trails where silverbacks gaze at you with ancient eyes, to mist-shrouded valleys echoing with wild chimpanzee calls, sun-drenched savannas where lions roam like kings, and vibrant villages where centuries-old traditions still pulse with life.",
+    "Every journey with us is personal, purposeful, and profoundly authentic. Whether you crave an adrenaline-filled gorilla trek in Bwindi, a soul-stirring cultural immersion with indigenous communities, a private wildlife drive beneath a blood-orange sunset, or a refined luxury escape that still feels like home, we design it exactly for you. Budget, mid-range, or premium, it doesn't matter. What matters is that it's your Uganda, experienced from the inside.",
+    "We know the great and the unusual: secret viewpoints, the finest local guides, and the communities that turn a simple holiday into a story you'll tell for the rest of your life. With us, you don't just visit Uganda. You become part of its living story.",
+    "Welcome to the inside. We can't wait to show you our home.",
   ],
+  vision:
+    "To travel is to connect. Our vision is to build deep, respectful bridges between visitors and Uganda's extraordinary local communities. We believe responsible travel creates real, lasting positive change, not only for your soul, but for the people who call this land home.",
+  mission:
+    "To uplift and empower the communities we work with while delivering the most authentic, immersive, and life-affirming holidays possible. When you journey with us, Uganda doesn't just leave an impression. It becomes part of you, and you become part of it.",
 
-  // ---- Services ----
   services: [
     {
       icon: "binoculars",
       title: "Wildlife Safaris",
       description:
-        "Expertly guided game drives and walking safaris through Uganda's finest national parks. Track lions, elephants, and hippos with a guide who reads the landscape like a native language.",
+        "Expertly guided game drives and walking safaris through Uganda's premier national parks. Track lions, elephants, leopards, and hippos with guides who read the landscape like a native language. Every drive is a story unfolding in real time, and the golden hour here is unlike anywhere else on earth.",
     },
     {
       icon: "globe",
       title: "Cultural Tours",
       description:
-        "Authentic village visits, traditional ceremonies, and local market explorations. Connect with Bakiga, Banyankole, and Baganda communities for a Uganda far beyond the guidebook.",
+        "Step beyond the guidebook and into the living culture of Uganda. Enjoy authentic village visits, traditional ceremonies, local market explorations, and meaningful encounters with the diverse communities that have shaped this land for centuries. These are not performances for tourists. They are genuine connections that stay with you long after you've returned home.",
     },
     {
       icon: "mountain",
       title: "Gorilla Trekking",
       description:
-        "Unforgettable permit-guided treks into Bwindi Impenetrable Forest and Mgahinga. Spend precious time with mountain gorilla families in one of the world's most profound wildlife encounters.",
+        "Few experiences in the world come close to this. Permit-guided treks into the misty depths of Bwindi Impenetrable Forest and Mgahinga Gorilla National Park bring you face to face with mountain gorilla families in their natural habitat. Humbling, awe-inspiring, and utterly unforgettable.",
+    },
+    {
+      icon: "chimp",
+      title: "Chimpanzee Tracking",
+      description:
+        "Venture into lush chimpanzee habitats in Kibale Forest, Budongo, or along the shores of Lake Albert. Listen to their calls echo through the canopy and witness their intelligence and playfulness up close. It is a wildlife encounter that never gets old.",
     },
     {
       icon: "bird",
       title: "Birding Safaris",
       description:
-        "Uganda hosts over 1,060 bird species. From the Shoebill Stork in Murchison Falls to the African Green Broadbill in Bwindi, let an expert guide turn every dawn chorus into a discovery.",
+        "Uganda is a birder's paradise, home to over 1,060 recorded species. From the elusive Shoebill Stork in Murchison Falls to the striking African Green Broadbill in Bwindi, our expert guides turn every dawn into a thrilling discovery. Whether you're a seasoned twitcher or a curious first-timer, you will leave with a list to be proud of.",
     },
     {
       icon: "hike",
       title: "Adventure Hikes",
       description:
-        "Guided ascents of the Virunga volcanoes, multi-day treks through the Rwenzori Mountains, and ridge walks above the Kigezi highlands. Challenging routes, breathtaking rewards.",
+        "Challenge yourself with guided ascents of the Virunga volcanoes, multi-day treks through the legendary Rwenzori Mountains, or scenic ridge walks above the Kigezi highlands. The climbs are demanding. The views are worth every step.",
+    },
+    {
+      icon: "luxury",
+      title: "Luxury and Tailor-Made Journeys",
+      description:
+        "From intimate luxury tented camps and private lodges to fully bespoke itineraries, we elevate every detail of your experience. Whether it is a romantic escape, a family adventure, or a solo soul-searching trip, we craft it around you, not the other way around.",
     },
   ],
 
-  // ---- Experience ----
-  experience: [
-    {
-      company: "Monkey Adventures",
-      role: "Tour Guide",
-      period: "2018 – Present",
-      highlights: [
-        "Led wildlife and adventure tours across western Uganda",
-        "Coordinated multi-day gorilla trekking expeditions",
-        "Ensured guest safety and satisfaction on all routes",
-      ],
-    },
-    {
-      company: "Authentic Africa Safaris",
-      role: "Tour Guide",
-      period: "2018 – Present",
-      highlights: [
-        "Designed and led custom safari itineraries for international clients",
-        "Conducted interpretive talks on local ecology and cultural heritage",
-        "Maintained a 5-star guest feedback record",
-      ],
-    },
-    {
-      company: "Birdnest Resort Tours & Travel Ltd",
-      role: "Tour Guide",
-      period: "2018 – Present",
-      highlights: [
-        "Specialist birding guide for resort guests and independent travelers",
-        "Coordinated logistics with lodges and local community groups",
-        "Developed new birding trail routes around Lake Bunyonyi",
-      ],
-    },
-  ],
-
-  certification: {
-    title: "Level One Guiding Certificate",
-    issuer: "African Institute of Tourism and Field Guiding",
-    year: "2018",
-  },
-
-  // ---- Education ----
-  education: [
-    {
-      institution: "Kampala International University",
-      qualification: "University Education",
-      level: "Degree",
-    },
-    {
-      institution: "Kigezi College Butobere",
-      qualification: "A-Level (Uganda Advanced Certificate of Education)",
-      level: "A-Level",
-    },
-    {
-      institution: "Kabale Brainstorm High School",
-      qualification: "O-Level (Uganda Certificate of Education)",
-      level: "O-Level",
-    },
-    {
-      institution: "St. Maria Goretti Nursery & Preparatory School",
-      qualification: "Primary Education",
-      level: "Primary",
-    },
-  ],
-
-  // ---- Testimonials ----
-  // Replace [Guest Name] and [Country] with real guest details as they come in
   testimonials: [
     {
       quote:
-        "John made our gorilla trekking experience absolutely magical. His knowledge of the forest and the gorillas was extraordinary — he spotted a silverback we would have walked right past!",
+        "An extraordinary experience from start to finish. Inside Uganda Holidays crafted a journey that was deeply personal and utterly unforgettable.",
       author: "[Guest Name]",
       country: "[Country]",
       rating: 5,
     },
     {
       quote:
-        "An incredible guide with deep cultural knowledge. Our village visit was the highlight of our entire trip to Uganda. John connected us with local families in the most genuine way.",
+        "The gorilla trek in Bwindi was the highlight of our lives. Our guide was exceptional and everything was perfectly arranged.",
       author: "[Guest Name]",
       country: "[Country]",
       rating: 5,
     },
     {
       quote:
-        "Professional, warm, and genuinely passionate about Uganda. Johnie made us feel safe and amazed throughout every safari. We will absolutely be back — and we'll book through him again.",
+        "Professional, warm, and genuinely passionate about Uganda. We didn't just visit — we became part of the story.",
       author: "[Guest Name]",
       country: "[Country]",
       rating: 5,

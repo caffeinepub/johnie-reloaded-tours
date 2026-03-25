@@ -1,58 +1,49 @@
 import { siteContent } from "@/data/content";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 
 export function About() {
-  const bioParagraphs = siteContent.bio.split("\n\n");
+  const [expanded, setExpanded] = useState(false);
+  // On mobile show only the first 2 paragraphs when collapsed
+  const PREVIEW_COUNT = 2;
+  const paragraphs = siteContent.aboutParagraphs;
 
   return (
     <section id="about" className="texture-sand py-20 lg:py-28">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="h-px w-10 bg-gold" />
-          <span className="text-brown text-xs tracking-[0.3em] uppercase font-medium">
-            Who I Am
-          </span>
-        </div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-10 bg-gold" />
+            <span className="text-brown text-xs tracking-[0.3em] uppercase font-medium">
+              Who We Are
+            </span>
+          </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="flex justify-center lg:justify-start"
-          >
-            <div className="relative">
-              <div className="relative w-72 sm:w-80 lg:w-96">
-                <div className="absolute -inset-2 border-2 border-gold rounded-xl opacity-40" />
-                <div className="absolute -inset-4 border border-gold/20 rounded-2xl" />
-                <img
-                  src={siteContent.profilePhoto}
-                  alt={siteContent.name}
-                  className="relative w-full rounded-xl object-cover shadow-card border-2 border-gold/60"
-                  style={{ aspectRatio: "4/5" }}
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-forest text-sand text-xs px-4 py-2 rounded-full tracking-widest uppercase whitespace-nowrap shadow-lg">
-                  📍 {siteContent.location}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <h2 className="font-display text-4xl lg:text-5xl font-bold text-forest uppercase tracking-wide mb-4">
+            About Us
+          </h2>
+          <div className="w-16 h-1 bg-gold mb-8" />
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="pt-6 lg:pt-0"
-          >
-            <h2 className="font-display text-4xl lg:text-5xl font-bold text-forest uppercase tracking-wide mb-6">
-              About Me
-            </h2>
-            <div className="w-16 h-1 bg-gold mb-8" />
+          {/* Desktop: show all paragraphs */}
+          <div className="hidden sm:block">
+            {paragraphs.map((para) => (
+              <p
+                key={para.slice(0, 40)}
+                className="text-foreground/80 leading-relaxed mb-5 text-base"
+              >
+                {para}
+              </p>
+            ))}
+          </div>
 
-            {bioParagraphs.map((para) => (
+          {/* Mobile: collapsible */}
+          <div className="block sm:hidden">
+            {paragraphs.slice(0, PREVIEW_COUNT).map((para) => (
               <p
                 key={para.slice(0, 40)}
                 className="text-foreground/80 leading-relaxed mb-5 text-base"
@@ -61,29 +52,69 @@ export function About() {
               </p>
             ))}
 
-            <blockquote className="relative my-8 pl-6 border-l-4 border-gold">
-              <p className="font-display text-xl italic text-forest">
-                &ldquo;{siteContent.quote}&rdquo;
-              </p>
-            </blockquote>
-
-            <div className="flex flex-wrap gap-4 mt-8">
-              {siteContent.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="bg-forest text-sand px-6 py-4 rounded-xl text-center shadow-card min-w-[110px]"
+            <AnimatePresence initial={false}>
+              {expanded && (
+                <motion.div
+                  key="extra"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.45, ease: "easeInOut" }}
+                  style={{ overflow: "hidden" }}
                 >
-                  <div className="font-display text-3xl font-bold text-gold">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs tracking-widest uppercase mt-1 text-sand/70">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+                  {paragraphs.slice(PREVIEW_COUNT).map((para) => (
+                    <p
+                      key={para.slice(0, 40)}
+                      className="text-foreground/80 leading-relaxed mb-5 text-base"
+                    >
+                      {para}
+                    </p>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="mt-1 mb-4 flex items-center gap-2 text-forest font-semibold text-sm tracking-wide border-b border-gold pb-0.5 hover:text-brown transition-colors"
+            >
+              {expanded ? "View Less" : "View More"}
+              <motion.span
+                animate={{ rotate: expanded ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+                className="inline-block"
+              >
+                ▾
+              </motion.span>
+            </button>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12"
+        >
+          <div className="bg-forest text-sand rounded-xl p-7 shadow-card">
+            <h3 className="font-display text-lg font-bold text-gold uppercase tracking-wide mb-3">
+              Our Vision
+            </h3>
+            <p className="text-sand/80 text-sm leading-relaxed">
+              {siteContent.vision}
+            </p>
+          </div>
+          <div className="bg-forest text-sand rounded-xl p-7 shadow-card">
+            <h3 className="font-display text-lg font-bold text-gold uppercase tracking-wide mb-3">
+              Our Mission
+            </h3>
+            <p className="text-sand/80 text-sm leading-relaxed">
+              {siteContent.mission}
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
 import { siteContent } from "@/data/content";
-import { Facebook, Instagram, Mail, Phone } from "lucide-react";
 import { motion } from "motion/react";
 
 export function Hero() {
@@ -7,6 +6,8 @@ export function Hero() {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
+
+  const titleWords = siteContent.heroHeadline.split(" ");
 
   return (
     <section
@@ -28,99 +29,97 @@ export function Hero() {
       />
 
       <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto pt-20">
+        {/* Animated decorative line */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="flex items-center justify-center gap-3 mb-6"
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-12 bg-gold" />
-            <span className="text-gold text-xs tracking-[0.3em] uppercase font-medium">
-              Uganda
-            </span>
-            <div className="h-px w-12 bg-gold" />
-          </div>
+          <div className="h-px w-12 bg-gold" />
+          <div className="h-px w-12 bg-gold" />
+        </motion.div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight tracking-wide uppercase mb-4">
-            {siteContent.name}
-          </h1>
-
-          <p className="text-gold text-lg sm:text-xl font-medium tracking-widest uppercase mb-4">
-            {siteContent.role}
-          </p>
-
-          <p className="text-white/80 text-xl sm:text-2xl font-display italic mb-10">
-            &ldquo;{siteContent.tagline}&rdquo;
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <button
-              type="button"
-              onClick={() => handleScroll("#services")}
-              className="bg-gold hover:bg-gold-light text-forest-dark font-bold text-sm tracking-widest uppercase px-8 py-4 rounded transition-all duration-200 shadow-gold min-w-[200px]"
-              data-ocid="hero.primary_button"
+        {/* Animated headline — each word slides up in sequence */}
+        <h1 className="font-display text-3xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight tracking-wide mb-6">
+          {titleWords.map((word, i) => (
+            <motion.span
+              // biome-ignore lint/suspicious/noArrayIndexKey: hero words are static
+              key={`word-${i}`}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.3 + i * 0.12,
+                ease: "easeOut",
+              }}
+              className="inline-block mr-[0.25em]"
             >
-              VIEW MY SERVICES
-            </button>
-            <button
-              type="button"
-              onClick={() => handleScroll("#contact")}
-              className="border-2 border-gold text-gold hover:bg-gold hover:text-forest-dark font-bold text-sm tracking-widest uppercase px-8 py-4 rounded transition-all duration-200 min-w-[200px]"
-              data-ocid="hero.secondary_button"
-            >
-              CONTACT ME
-            </button>
-          </div>
+              {word}
+            </motion.span>
+          ))}
+        </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 text-white/70">
-            <a
-              href={`tel:${siteContent.phones[0].replace(/\s/g, "")}`}
-              className="flex items-center gap-2 hover:text-gold transition-colors text-sm"
-              data-ocid="hero.link"
-            >
-              <Phone size={15} />
-              {siteContent.phones[0]}
-            </a>
-            <a
-              href={`mailto:${siteContent.email}`}
-              className="flex items-center gap-2 hover:text-gold transition-colors text-sm"
-              data-ocid="hero.link"
-            >
-              <Mail size={15} />
-              {siteContent.email}
-            </a>
-            <div className="flex items-center gap-3">
-              <a
-                href={siteContent.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
-                aria-label="Instagram"
-                data-ocid="hero.link"
-              >
-                <Instagram size={18} />
-              </a>
-              <a
-                href={siteContent.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-gold transition-colors"
-                aria-label="Facebook"
-                data-ocid="hero.link"
-              >
-                <Facebook size={18} />
-              </a>
-            </div>
-          </div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.9 }}
+          className="text-white/80 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-6"
+        >
+          {siteContent.heroDescription}
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 1.1 }}
+          className="text-gold text-base sm:text-lg font-display italic mb-10"
+        >
+          &ldquo;{siteContent.tagline}&rdquo;
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <button
+            type="button"
+            onClick={() => handleScroll("#services")}
+            className="bg-gold hover:bg-gold-light text-forest-dark font-bold text-sm tracking-widest uppercase px-8 py-4 rounded transition-all duration-200 shadow-gold min-w-[220px]"
+            data-ocid="hero.primary_button"
+          >
+            EXPLORE OUR SERVICES
+          </button>
+          <button
+            type="button"
+            onClick={() => handleScroll("#contact")}
+            className="border-2 border-gold text-gold hover:bg-gold hover:text-forest-dark font-bold text-sm tracking-widest uppercase px-8 py-4 rounded transition-all duration-200 min-w-[220px]"
+            data-ocid="hero.secondary_button"
+          >
+            CONTACT US
+          </button>
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span className="text-white/40 text-xs tracking-widest uppercase">
-          Scroll
-        </span>
-        <div className="w-px h-10 bg-gradient-to-b from-gold/60 to-transparent" />
-      </div>
+      {/* Animated scroll indicator — no text, just the line */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
+      >
+        <motion.div
+          animate={{ scaleY: [0.4, 1, 0.4] }}
+          transition={{
+            duration: 2,
+            repeat: Number.POSITIVE_INFINITY,
+            ease: "easeInOut",
+          }}
+          className="w-px h-10 bg-gradient-to-b from-gold/60 to-transparent origin-top"
+        />
+      </motion.div>
     </section>
   );
 }

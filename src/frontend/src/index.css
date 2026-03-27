@@ -145,46 +145,43 @@
 
 /* Print styles */
 @media print {
-  /* Hide navbar and download buttons */
-  header,
-  [data-pdf-hide] {
+  /* Hide everything on the page that is not part of the resume */
+  body.printing-resume section:not(#resume),
+  body.printing-resume nav,
+  body.printing-resume footer,
+  body.printing-resume header {
     display: none !important;
   }
 
-  /* Remove fixed positioning, show full page */
+  body.printing-resume #resume {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.printing-resume #resume > .max-w-5xl {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
   body {
     background: white !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Ensure backgrounds and colors print */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
-  /* Allow sections to break across pages naturally */
-  section {
-    break-inside: auto;
-    page-break-inside: auto;
-  }
-
-  /* Only avoid breaks inside small card/list items */
-  .print-no-break {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  /* Remove top padding that was reserved for the fixed navbar */
-  main {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-  }
-
-  /* Remove overflow hidden that may clip content */
-  section,
-  div {
-    overflow: visible !important;
+  @page {
+    margin: 10mm;
+    size: A4;
   }
 }

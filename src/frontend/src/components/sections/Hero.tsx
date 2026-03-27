@@ -12,7 +12,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="group relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -103,7 +103,35 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Animated scroll indicator — no text, just the line */}
+      {/* Download wallpaper button — visible on hover */}
+      <a
+        href={siteContent.heroImage}
+        download="inside-uganda-holidays-wallpaper.jpg"
+        className="absolute bottom-20 right-6 z-20 flex items-center gap-2 px-4 py-2.5 rounded border border-gold bg-black/50 text-white text-sm font-semibold tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-black/70 backdrop-blur-sm"
+        data-ocid="hero.secondary_button"
+        aria-label="Download hero wallpaper"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-gold"
+          aria-hidden="true"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Download Wallpaper
+      </a>
+
+      {/* Animated scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

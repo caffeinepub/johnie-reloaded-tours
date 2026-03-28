@@ -1,32 +1,85 @@
 import { Button } from "@/components/ui/button";
 import { Award, Download, Mail, MapPin, Phone } from "lucide-react";
 
-const heroImage = "/assets/generated/hero-uganda-landscape.dim_1920x1080.jpg";
 const profilePhoto =
   "/assets/uploads/image-019d273f-5bcb-726b-a4a1-196bcfedb0d3-3.png";
 
 export function Resume() {
   const handleDownload = () => {
-    document.body.classList.add("printing-resume");
-    window.print();
-    // Remove class after print dialog closes
-    window.addEventListener(
-      "afterprint",
-      () => {
-        document.body.classList.remove("printing-resume");
-      },
-      { once: true },
-    );
-    // Fallback removal in case afterprint doesn't fire
-    setTimeout(() => {
-      document.body.classList.remove("printing-resume");
-    }, 3000);
+    const resumeEl = document.getElementById("resume-content");
+    if (!resumeEl) return;
+    const origin = window.location.origin;
+    const styleLinks = Array.from(document.styleSheets)
+      .map((sheet) => sheet.href)
+      .filter(Boolean)
+      .map((href) => `<link rel="stylesheet" href="${href}">`)
+      .join("\n");
+    const resumeHtml = resumeEl.outerHTML;
+    const printWindow = window.open("", "_blank", "width=960,height=700");
+    if (!printWindow) {
+      alert(
+        "Pop-ups are blocked. Please allow pop-ups for this site and try again.",
+      );
+      return;
+    }
+    printWindow.document.write(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ainomugisha John Labera — Resume</title>
+  <base href="${origin}/" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  ${styleLinks}
+  <style>
+    @page { margin: 0; size: A4 portrait; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 210mm;
+      height: 297mm;
+      background: white;
+    }
+    #resume-content {
+      width: 210mm !important;
+      min-height: 297mm !important;
+      display: flex !important;
+      flex-direction: column !important;
+      box-shadow: none !important;
+    }
+    #resume-body {
+      display: flex !important;
+      flex: 1 1 0% !important;
+      min-height: 0 !important;
+    }
+    #resume-sidebar {
+      flex-shrink: 0 !important;
+      width: 30% !important;
+      align-self: stretch !important;
+    }
+    #resume-main {
+      flex: 1 1 0% !important;
+      background: #ffffff !important;
+      align-self: stretch !important;
+    }
+  </style>
+</head>
+<body>
+  ${resumeHtml}
+  <script>
+    window.addEventListener('load', function () {
+      setTimeout(function () { window.print(); window.close(); }, 800);
+    });
+  </script>
+</body>
+</html>`);
+    printWindow.document.close();
   };
 
   return (
     <section id="resume" className="py-20 bg-sand">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section heading */}
         <div className="flex items-center gap-3 mb-4">
           <div className="h-px w-10 bg-gold" />
           <span className="text-brown text-xs tracking-[0.3em] uppercase font-medium">
@@ -37,9 +90,7 @@ export function Resume() {
           Resume
         </h2>
         <div className="w-16 h-1 bg-gold mb-8" />
-
-        {/* Download button */}
-        <div className="mb-8 no-print">
+        <div className="mb-8">
           <Button
             onClick={handleDownload}
             className="bg-forest hover:bg-forest-dark text-sand font-body font-semibold px-6 py-2 rounded-sm shadow-md"
@@ -49,10 +100,9 @@ export function Resume() {
           </Button>
         </div>
 
-        {/* Resume Card */}
         <div
           id="resume-content"
-          className="bg-white shadow-2xl overflow-hidden"
+          className="bg-white shadow-2xl"
           style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
         >
           {/* Header */}
@@ -83,19 +133,19 @@ export function Resume() {
                 className="text-sm font-semibold tracking-widest uppercase mt-1"
                 style={{ color: "#D4A017" }}
               >
-                FREELANCE TOUR GUIDE | UGANDA
+                FREELANCE TOUR GUIDE
               </p>
             </div>
           </div>
 
           {/* Body */}
-          <div className="flex">
-            {/* LEFT SIDEBAR */}
+          <div id="resume-body" className="flex">
+            {/* Sidebar */}
             <div
-              className="w-[35%] flex-shrink-0 px-6 py-7 space-y-6"
+              id="resume-sidebar"
+              className="w-[30%] flex-shrink-0 px-6 py-7 space-y-6"
               style={{ backgroundColor: "#0B5A3A", color: "#F6F1EA" }}
             >
-              {/* Contact */}
               <section>
                 <h3
                   className="text-xs font-bold tracking-widest uppercase mb-3 pb-1"
@@ -142,7 +192,6 @@ export function Resume() {
                 </ul>
               </section>
 
-              {/* Expertise */}
               <section>
                 <h3
                   className="text-xs font-bold tracking-widest uppercase mb-3 pb-1"
@@ -176,7 +225,6 @@ export function Resume() {
                 </div>
               </section>
 
-              {/* Languages */}
               <section>
                 <h3
                   className="text-xs font-bold tracking-widest uppercase mb-3 pb-1"
@@ -199,7 +247,6 @@ export function Resume() {
                 </ul>
               </section>
 
-              {/* Certified */}
               <section>
                 <div
                   className="rounded-sm p-3 text-xs"
@@ -223,236 +270,116 @@ export function Resume() {
                   </p>
                 </div>
               </section>
+            </div>
 
-              {/* Education */}
-              <section>
-                <h3
-                  className="text-xs font-bold tracking-widest uppercase mb-3 pb-1"
+            {/* Right Main */}
+            <div
+              id="resume-main"
+              className="flex-1 px-8 py-7"
+              style={{ backgroundColor: "#ffffff" }}
+            >
+              {/* Biography */}
+              <section className="mb-8">
+                <h2
+                  className="text-base font-bold tracking-widest uppercase mb-1"
                   style={{
-                    color: "#D4A017",
-                    borderBottom: "1px solid rgba(212,160,23,0.4)",
+                    color: "#0B5A3A",
+                    fontFamily: "'Playfair Display', serif",
+                  }}
+                >
+                  Professional Biography
+                </h2>
+                <div
+                  className="h-0.5 w-12 mb-4"
+                  style={{ backgroundColor: "#D4A017" }}
+                />
+                <div
+                  className="space-y-4 text-base leading-loose"
+                  style={{ color: "#3a2a1a" }}
+                >
+                  <p>
+                    I am an experienced Ugandan freelance Tour Guide with over
+                    eight years of professional experience working with Monkey
+                    Adventures, Authentic Africa Safaris, and Birdnest Resort
+                    Tours and Travel Ltd. I specialize in wildlife safaris,
+                    cultural tours and adventure travel across Uganda and
+                    Rwanda.
+                  </p>
+                  <p>
+                    I hold a Level One Guiding Certificate from the African
+                    Institute of Tourism and Field Guiding, which equips me with
+                    strong guiding, visitor safety and interpretation skills.
+                    Based in Kabale and Kampala, Uganda.
+                  </p>
+                </div>
+              </section>
+
+              {/* Educational Background */}
+              <section>
+                <h2
+                  className="text-base font-bold tracking-widest uppercase mb-1"
+                  style={{
+                    color: "#0B5A3A",
+                    fontFamily: "'Playfair Display', serif",
                   }}
                 >
                   Educational Background
-                </h3>
-                <div className="space-y-3 text-xs">
+                </h2>
+                <div
+                  className="h-0.5 w-12 mb-4"
+                  style={{ backgroundColor: "#D4A017" }}
+                />
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 text-sm">
                   <div>
-                    <p className="font-semibold" style={{ color: "#D4A017" }}>
+                    <p
+                      className="font-semibold text-xs uppercase tracking-wide mb-0.5"
+                      style={{ color: "#D4A017" }}
+                    >
                       University
                     </p>
-                    <p style={{ color: "#F6F1EA" }}>
+                    <p style={{ color: "#3a2a1a" }}>
                       Kampala International University
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: "#D4A017" }}>
+                    <p
+                      className="font-semibold text-xs uppercase tracking-wide mb-0.5"
+                      style={{ color: "#D4A017" }}
+                    >
                       A-Level
                     </p>
-                    <p style={{ color: "#F6F1EA" }}>Kigezi College Butobere</p>
-                    <p style={{ color: "rgba(246,241,234,0.65)" }}>
+                    <p style={{ color: "#3a2a1a" }}>Kigezi College Butobere</p>
+                    <p className="text-xs mt-0.5" style={{ color: "#7a6a5a" }}>
                       Uganda Advanced Certificate of Education
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: "#D4A017" }}>
+                    <p
+                      className="font-semibold text-xs uppercase tracking-wide mb-0.5"
+                      style={{ color: "#D4A017" }}
+                    >
                       O-Level
                     </p>
-                    <p style={{ color: "#F6F1EA" }}>
+                    <p style={{ color: "#3a2a1a" }}>
                       Kabale Brainstorm High School
                     </p>
-                    <p style={{ color: "rgba(246,241,234,0.65)" }}>
+                    <p className="text-xs mt-0.5" style={{ color: "#7a6a5a" }}>
                       Uganda Certificate of Education
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold" style={{ color: "#D4A017" }}>
+                    <p
+                      className="font-semibold text-xs uppercase tracking-wide mb-0.5"
+                      style={{ color: "#D4A017" }}
+                    >
                       Primary
                     </p>
-                    <p style={{ color: "#F6F1EA" }}>
+                    <p style={{ color: "#3a2a1a" }}>
                       St. Maria Goretti Nursery &amp; Preparatory School
                     </p>
                   </div>
                 </div>
               </section>
-            </div>
-
-            {/* RIGHT MAIN */}
-            <div
-              className="flex-1 px-8 py-7 space-y-7 relative"
-              style={{
-                backgroundImage: `url('${heroImage}')`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              {/* Overlay for readability */}
-              <div
-                className="absolute inset-0"
-                style={{ backgroundColor: "rgba(246,241,234,0.93)" }}
-              />
-              <div className="relative z-10 space-y-7">
-                {/* Biography */}
-                <section>
-                  <h2
-                    className="text-base font-bold tracking-widest uppercase mb-1"
-                    style={{
-                      color: "#0B5A3A",
-                      fontFamily: "'Playfair Display', serif",
-                    }}
-                  >
-                    Professional Biography
-                  </h2>
-                  <div
-                    className="h-0.5 w-12 mb-3"
-                    style={{ backgroundColor: "#D4A017" }}
-                  />
-                  <div
-                    className="space-y-3 text-sm leading-relaxed"
-                    style={{ color: "#3a2a1a" }}
-                  >
-                    <p>
-                      I am an experienced Ugandan freelance Tour Guide with over
-                      eight years of professional experience working with Monkey
-                      Adventures, Authentic Africa Safaris, and Birdnest Resort
-                      Tours and Travel Ltd. I specialize in wildlife safaris,
-                      cultural tours and adventure travel across Uganda and
-                      Rwanda.
-                    </p>
-                    <p>
-                      I hold a Level One Guiding Certificate from the African
-                      Institute of Tourism and Field Guiding, which equips me
-                      with strong guiding, visitor safety and interpretation
-                      skills. Johnie is known for his friendly personality, deep
-                      local knowledge and passion for sharing Uganda and
-                      Rwanda's nature and cultural heritage with visitors. I am
-                      based in Kabale and Kampala Uganda and I enjoy travelling
-                      and exploring new destinations.
-                    </p>
-                  </div>
-                </section>
-
-                {/* Professional Overview */}
-                <section>
-                  <h2
-                    className="text-base font-bold tracking-widest uppercase mb-1"
-                    style={{
-                      color: "#0B5A3A",
-                      fontFamily: "'Playfair Display', serif",
-                    }}
-                  >
-                    Professional Overview
-                  </h2>
-                  <div
-                    className="h-0.5 w-12 mb-3"
-                    style={{ backgroundColor: "#D4A017" }}
-                  />
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { label: "Role", value: "Freelance Tour Guide" },
-                      { label: "Experience", value: "8 Years" },
-                      {
-                        label: "Companies",
-                        value:
-                          "Monkey Adventures · Authentic Africa Safaris · Birdnest Resort Tours & Travel Ltd",
-                      },
-                      {
-                        label: "Certification",
-                        value:
-                          "Level One Guiding — African Institute of Tourism and Field Guiding",
-                      },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="p-3 rounded-sm"
-                        style={{
-                          backgroundColor: "rgba(11,90,58,0.07)",
-                          border: "1px solid rgba(11,90,58,0.15)",
-                        }}
-                      >
-                        <p
-                          className="text-xs font-bold uppercase tracking-wide mb-0.5"
-                          style={{ color: "#7A4B2A" }}
-                        >
-                          {item.label}
-                        </p>
-                        <p className="text-xs" style={{ color: "#1a1a1a" }}>
-                          {item.value}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* Work Experience */}
-                <section>
-                  <h2
-                    className="text-base font-bold tracking-widest uppercase mb-1"
-                    style={{
-                      color: "#0B5A3A",
-                      fontFamily: "'Playfair Display', serif",
-                    }}
-                  >
-                    Work Experience
-                  </h2>
-                  <div
-                    className="h-0.5 w-12 mb-3"
-                    style={{ backgroundColor: "#D4A017" }}
-                  />
-                  <div className="space-y-4">
-                    {[
-                      {
-                        company: "Monkey Adventures",
-                        role: "TOUR & SAFARI GUIDE",
-                        description:
-                          "Led immersive wildlife and adventure tours in Uganda's national parks and forests.",
-                      },
-                      {
-                        company: "Birdnest Resort Tours & Travel Ltd",
-                        role: "TOUR GUIDE & TRAVEL CONSULTANT",
-                        description:
-                          "Guided international visitors on premium safari experiences.",
-                      },
-                      {
-                        company: "Authentic Africa Safaris",
-                        role: "FREELANCE SAFARI GUIDE",
-                        description:
-                          "Delivered cultural and nature-based tours specialising in heritage sites.",
-                      },
-                    ].map((exp, i) => (
-                      <div
-                        key={exp.company}
-                        className="flex gap-3"
-                        data-ocid={`resume.item.${i + 1}`}
-                      >
-                        <div
-                          className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0"
-                          style={{ backgroundColor: "#D4A017" }}
-                        />
-                        <div>
-                          <p
-                            className="text-sm font-bold"
-                            style={{ color: "#0B5A3A" }}
-                          >
-                            {exp.company}
-                          </p>
-                          <p
-                            className="text-xs font-semibold tracking-wider uppercase"
-                            style={{ color: "#7A4B2A" }}
-                          >
-                            {exp.role}
-                          </p>
-                          <p
-                            className="text-xs mt-0.5"
-                            style={{ color: "#3a2a1a" }}
-                          >
-                            {exp.description}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              </div>
             </div>
           </div>
         </div>

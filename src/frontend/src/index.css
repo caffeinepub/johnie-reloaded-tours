@@ -145,6 +145,12 @@
 
 /* Print styles */
 @media print {
+  /* Suppress browser-added URL/date headers and footers */
+  @page {
+    margin: 0;
+    size: A4;
+  }
+
   /* Hide everything on the page that is not part of the resume */
   body.printing-resume section:not(#resume),
   body.printing-resume nav,
@@ -165,6 +171,42 @@
     margin: 0 !important;
   }
 
+  /* Fix: overflow-hidden clips content in print — must be visible */
+  body.printing-resume #resume-content {
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  /* Fix: flex children need explicit height in print */
+  body.printing-resume #resume-content > .flex {
+    display: block !important;
+  }
+
+  body.printing-resume #resume-content > .flex > * {
+    display: block !important;
+    width: 100% !important;
+    float: none !important;
+  }
+
+  /* Restore sidebar as a left column using table layout for print reliability */
+  body.printing-resume #resume-body {
+    display: table !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  body.printing-resume #resume-sidebar {
+    display: table-cell !important;
+    width: 35% !important;
+    vertical-align: top !important;
+  }
+
+  body.printing-resume #resume-main {
+    display: table-cell !important;
+    width: 65% !important;
+    vertical-align: top !important;
+  }
+
   .no-print {
     display: none !important;
   }
@@ -178,10 +220,5 @@
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-  }
-
-  @page {
-    margin: 10mm;
-    size: A4;
   }
 }

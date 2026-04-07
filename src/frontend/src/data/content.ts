@@ -7,8 +7,10 @@ export const siteContent = {
   shortName: "Inside Uganda Holidays",
   tagline: "Adventure is the path",
   email: "info@insideuganda.holidays",
-  instagram: "https://www.instagram.com/insideugandaholidays",
-  facebook: "https://www.facebook.com/insideugandaholidays",
+  whatsapp: "+256751348639",
+  whatsappDisplay: "+256 751 348 639",
+  instagram: "https://www.instagram.com/JohnieReloaded",
+  facebook: "https://www.facebook.com/JohnieReloaded",
   heroImage: "/assets/generated/hero-uganda-landscape.dim_1920x1080.jpg",
 
   heroHeadline: "Inside Uganda Holidays",
